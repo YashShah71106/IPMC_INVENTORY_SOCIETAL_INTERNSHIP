@@ -182,14 +182,14 @@ function Overview() {
   return (
     <div className="flex flex-col gap-5">
       <BatchStrip />
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <KpiCard label="Stock Value" numeric={18.4} prefix="₹" suffix="L" sub="+3.2% vs last week" trend="up" icon={Boxes} delay={0} />
         <KpiCard label="Active Batches" numeric={5} sub="1 on hold — QC fail" trend="down" icon={Factory} delay={80} />
         <KpiCard label="QC Pass Rate" numeric={94} suffix="%" sub="last 30 days" trend="up" icon={ShieldCheck} delay={160} />
         <KpiCard label="Low-Stock Alerts" numeric={3} sub="Copper, Armouring, Reels" trend="down" icon={AlertTriangle} delay={240} />
       </div>
-      <div className="grid grid-cols-3 gap-5">
-        <SectionCard title="Raw Material Stock vs Reorder Threshold" className="col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <SectionCard title="Raw Material Stock vs Reorder Threshold" className="lg:col-span-2">
           <ResponsiveContainer width="100%" height={230}>
             <BarChart data={stockChartData} margin={{ left: -10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} vertical={false} />
@@ -221,7 +221,8 @@ function Inventory() {
   return (
     <div className="flex flex-col gap-5">
       <SectionCard title="Raw Material Ledger" action={<span className="text-xs font-[Inter] text-slate-400">Updated live on every transaction</span>}>
-        <table className="w-full text-sm font-[Inter]">
+        <div className="overflow-x-auto -mx-1">
+        <table className="w-full text-sm font-[Inter] min-w-[640px]">
           <thead>
             <tr className="text-left text-xs uppercase tracking-wider text-slate-500 border-b" style={{ borderColor: COLORS.border }}>
               <th className="py-2 font-semibold">Material</th>
@@ -241,8 +242,9 @@ function Inventory() {
             ))}
           </tbody>
         </table>
+        </div>
       </SectionCard>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <SectionCard title="Inward Entry (Today)">
           <div className="flex flex-col gap-3 font-[Inter] text-sm">
             <Row l="PVC Compound (Grade A)" r="600 kg" />
@@ -275,7 +277,8 @@ function Production() {
     <div className="flex flex-col gap-5">
       <BatchStrip />
       <SectionCard title="Shift Batch Log">
-        <table className="w-full text-sm font-[Inter]">
+        <div className="overflow-x-auto -mx-1">
+        <table className="w-full text-sm font-[Inter] min-w-[640px]">
           <thead>
             <tr className="text-left text-xs uppercase tracking-wider text-slate-500 border-b" style={{ borderColor: COLORS.border }}>
               <th className="py-2 font-semibold">Batch No.</th>
@@ -299,6 +302,7 @@ function Production() {
             ))}
           </tbody>
         </table>
+        </div>
       </SectionCard>
     </div>
   );
@@ -316,7 +320,8 @@ function Quality() {
             className="bg-transparent outline-none text-xs font-[IBM_Plex_Mono] w-40" />
         </div>
       }>
-        <table className="w-full text-sm font-[Inter]">
+        <div className="overflow-x-auto -mx-1">
+        <table className="w-full text-sm font-[Inter] min-w-[640px]">
           <thead>
             <tr className="text-left text-xs uppercase tracking-wider text-slate-500 border-b" style={{ borderColor: COLORS.border }}>
               <th className="py-2 font-semibold">Batch No.</th>
@@ -343,15 +348,16 @@ function Quality() {
             ))}
           </tbody>
         </table>
+        </div>
       </SectionCard>
-      <div className="grid grid-cols-3 gap-5">
-        <SectionCard title="Traceability Speed" className="col-span-1">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <SectionCard title="Traceability Speed" className="md:col-span-1">
           <div className="flex flex-col items-center justify-center py-4">
             <div className="text-4xl font-bold font-[Space_Grotesk]" style={{ color: COLORS.success }}>1m 48s</div>
             <div className="text-xs font-[Inter] text-slate-500 mt-2 text-center">avg. time to trace a quality result to its production batch — down from 45 minutes on paper</div>
           </div>
         </SectionCard>
-        <SectionCard title="Employee Satisfaction — Current System (Survey, n=15)" className="col-span-2">
+        <SectionCard title="Employee Satisfaction — Current System (Survey, n=15)" className="md:col-span-2">
           <ResponsiveContainer width="100%" height={190}>
             <PieChart>
               <Pie data={satisfactionData} dataKey="value" nameKey="name" innerRadius={45} outerRadius={75} paddingAngle={3}>
@@ -380,7 +386,8 @@ function Reports() {
   return (
     <div className="flex flex-col gap-5">
       <SectionCard title="Before vs After — IPMS Implementation">
-        <table className="w-full text-sm font-[Inter]">
+        <div className="overflow-x-auto -mx-1">
+        <table className="w-full text-sm font-[Inter] min-w-[640px]">
           <thead>
             <tr className="text-left text-xs uppercase tracking-wider text-slate-500 border-b" style={{ borderColor: COLORS.border }}>
               <th className="py-2 font-semibold">Metric</th>
@@ -398,8 +405,9 @@ function Reports() {
             ))}
           </tbody>
         </table>
+        </div>
       </SectionCard>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <SectionCard title="Export">
           <div className="flex flex-col gap-3">
             {["Daily Production Report — PDF", "Stock Ledger — Excel", "QC Traceability Log — PDF"].map(t => (
@@ -482,10 +490,10 @@ export default function IPMSPrototype() {
       `}</style>
 
       {/* Rail */}
-      <div style={{ background: COLORS.ink }} className="w-60 shrink-0 flex flex-col py-6 px-4 rail-anim">
-        <div className="flex items-center gap-2 px-2 mb-8">
-          <div style={{ background: COLORS.copper }} className="w-8 h-8 rounded-lg flex items-center justify-center font-[Space_Grotesk] font-bold text-white text-sm">JC</div>
-          <div>
+      <div style={{ background: COLORS.ink }} className="w-16 md:w-60 shrink-0 flex flex-col py-6 px-2 md:px-4 rail-anim">
+        <div className="flex items-center justify-center md:justify-start gap-2 px-0 md:px-2 mb-8">
+          <div style={{ background: COLORS.copper }} className="w-8 h-8 rounded-lg flex items-center justify-center font-[Space_Grotesk] font-bold text-white text-sm shrink-0">JC</div>
+          <div className="hidden md:block">
             <div className="text-white font-[Space_Grotesk] font-bold text-sm tracking-tight">IPMS</div>
             <div className="text-[10px] text-slate-400 font-[Inter] tracking-wide">Johnson Cables Pvt. Ltd.</div>
           </div>
@@ -495,17 +503,17 @@ export default function IPMSPrototype() {
             const Icon = n.icon;
             const isActive = active === n.key;
             return (
-              <button key={n.key} onClick={() => setActive(n.key)}
+              <button key={n.key} onClick={() => setActive(n.key)} title={n.label}
                 style={{ background: isActive ? "rgba(194,103,14,0.18)" : "transparent", color: isActive ? "#fff" : "#94A3B8" }}
-                className="nav-btn flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium font-[Inter] text-left">
-                <Icon size={17} color={isActive ? COLORS.copper : "#94A3B8"} className="nav-icon" />
-                {n.label}
-                {isActive && <span className="nav-dot" style={{ background: COLORS.copper }} />}
+                className="nav-btn flex items-center justify-center md:justify-start gap-3 px-0 md:px-3 py-2.5 rounded-lg text-sm font-medium font-[Inter] text-left">
+                <Icon size={17} color={isActive ? COLORS.copper : "#94A3B8"} className="nav-icon shrink-0" />
+                <span className="hidden md:inline">{n.label}</span>
+                {isActive && <span className="nav-dot hidden md:inline-block" style={{ background: COLORS.copper }} />}
               </button>
             );
           })}
         </nav>
-        <div className="mt-auto px-2 pt-6 border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+        <div className="hidden md:block mt-auto px-2 pt-6 border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
           <div className="text-[10px] text-slate-500 font-[Inter] uppercase tracking-widest mb-1">Role</div>
           <div className="text-sm text-white font-[Inter] font-medium">Production Supervisor</div>
         </div>
@@ -513,18 +521,18 @@ export default function IPMSPrototype() {
 
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        <div style={{ borderColor: COLORS.border, background: COLORS.surface }} className="h-16 border-b flex items-center justify-between px-8 shrink-0">
-          <div>
-            <div className="font-[Space_Grotesk] font-bold text-lg capitalize" style={{ color: COLORS.ink }}>{active}</div>
-            <div className="text-xs text-slate-400 font-[Inter]">Inventory & Production Management System</div>
+        <div style={{ borderColor: COLORS.border, background: COLORS.surface }} className="h-16 border-b flex items-center justify-between px-4 sm:px-8 shrink-0">
+          <div className="min-w-0">
+            <div className="font-[Space_Grotesk] font-bold text-base sm:text-lg capitalize truncate" style={{ color: COLORS.ink }}>{active}</div>
+            <div className="hidden sm:block text-xs text-slate-400 font-[Inter]">Inventory & Production Management System</div>
           </div>
-          <div className="flex items-center gap-5">
-            <div className="text-xs font-[IBM_Plex_Mono] text-slate-500">Shift A · 09:41 IST</div>
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
+            <div className="hidden sm:block text-xs font-[IBM_Plex_Mono] text-slate-500">Shift A · 09:41 IST</div>
             <Bell size={18} color="#64748B" />
-            <div style={{ background: COLORS.steel }} className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold font-[Inter]">PS</div>
+            <div style={{ background: COLORS.steel }} className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold font-[Inter] shrink-0">PS</div>
           </div>
         </div>
-        <div className="flex-1 overflow-auto p-8">
+        <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
           <div key={active} className="anim-tab-in">
             <View />
           </div>
